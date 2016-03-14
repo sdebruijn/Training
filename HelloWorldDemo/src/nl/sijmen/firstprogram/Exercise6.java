@@ -39,14 +39,13 @@ public class Exercise6 {
 			  try {
 	                System.out.print("Input: " + numTestScores + " ");
 	                num = s.nextInt();
-
 	                loop = false;
 	            } catch (InputMismatchException e) {
 	                System.out.println("Invalid value!");
 	                s.next();
 	            } 
 		}
-		
+		s.close();
 		
 		numTestScores++;
 		return num;
