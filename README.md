@@ -1,3 +1,5 @@
 # Training README
 
-Hieronder staat een overzicht van alles.
+Hier staan alle bestanden die in de training zijn gemaakt.
+
+Elke map is een eigen eclipse-project.
