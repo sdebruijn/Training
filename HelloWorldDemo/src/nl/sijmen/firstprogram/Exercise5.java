@@ -18,7 +18,7 @@ public class Exercise5 {
 		s.close();
 		
 		
-		if ( (x % 5) == 0) 	x = 100;
+		if (x / y == 5) 	x = 100;
 		System.out.println("Test divisability by 5.");
 		System.out.println("x: " + x);
 		

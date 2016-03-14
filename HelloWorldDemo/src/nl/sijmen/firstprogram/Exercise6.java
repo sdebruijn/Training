@@ -42,7 +42,7 @@ public class Exercise6 {
 	                loop = false;
 	            } catch (InputMismatchException e) {
 	                System.out.println("Invalid value!");
-	                s.next();
+	                s.next(); // Ensure the invalid value is skipped.
 	            } 
 		}
 		s.close();
