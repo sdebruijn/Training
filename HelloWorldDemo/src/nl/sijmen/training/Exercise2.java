@@ -1,4 +1,4 @@
-package nl.sijmen.firstprogram;
+package nl.sijmen.training;
 
 import java.util.Locale;
 import java.util.Scanner;

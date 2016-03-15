@@ -1,4 +1,4 @@
-package nl.sijmen.firstprogram;
+package nl.sijmen.training;
 
 public class HelloWorld
 {
