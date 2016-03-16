@@ -23,6 +23,6 @@ class Exercise4 {
 	}
 	public static int inputInt(String msg){
 		System.out.print(msg + " ");
-		return s.nextInt();
+		return this.s.nextInt();
 	}
 }
