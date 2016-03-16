@@ -7,8 +7,9 @@ public class Exercise10 {
 	
 	public static void main(String[] args) {
 		System.out.println("Only enter numbers in the range of 1 through 10");
-			
-		while(true)
+		
+		int x = 10;
+		while(x--)
 		{
 			int i = readInt();
 			System.out.println("You entered an integer! It was " + i);
