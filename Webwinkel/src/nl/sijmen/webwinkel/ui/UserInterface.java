@@ -51,9 +51,10 @@ public class UserInterface {
 
 			// Vraag afronoden of doorgaan?
 			bContinue = inputContinue();
-			clearConsole();
-			System.out.println("Fijn dat u verder winkelt!");
-
+			if (bContinue) {
+				clearConsole();
+				System.out.println("Fijn dat u verder winkelt!");
+			}
 		}
 
 	}

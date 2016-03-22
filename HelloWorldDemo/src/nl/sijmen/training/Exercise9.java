@@ -2,14 +2,14 @@ package nl.sijmen.training;
 
 import java.util.Scanner;
 
-public class Exercise10 {
+public class Exercise9 {
 	static Scanner s = new Scanner(System.in);
 	
 	public static void main(String[] args) {
 		System.out.println("Only enter numbers in the range of 1 through 10");
 		
 		int x = 10;
-		while(x--)
+		while(x-->0)
 		{
 			int i = readInt();
 			System.out.println("You entered an integer! It was " + i);
