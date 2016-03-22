@@ -15,7 +15,6 @@ public class UserInterface {
 	private static Winkelwagen wagen = new Winkelwagen();
 
 	public static void main(String[] args) {
-
 		// naam, prijs, voorraad, eenheid
 		voorraad.add(new DefaultProduct("Boek OCA examen", 40, 1000, Product.stuk));
 		voorraad.add(new DefaultProduct("Mock exam", 10, 400, Product.stuk));
@@ -31,7 +30,6 @@ public class UserInterface {
 			case 'C':
 				
 				break;
-
 			default:
 				try {
 					int productNummer = selectProduct();
