@@ -1,6 +1,5 @@
 package nl.sijmen.training;
 
-
 class AantalBytes{
 	
 	public static void main (String[] args) {
@@ -36,7 +35,19 @@ class AantalBytes{
 		System.out.println("Long past in Double: " + pastin(l,d) );	
 	}
 
-	private static int aantalbytes(Object obj) {
+	public static int aantalbytes(boolean a) { return aantalbytesHelper((Object)a); }
+	public static int aantalbytes(byte a)    { return aantalbytesHelper((Object)a); }
+	public static int aantalbytes(short a)   { return aantalbytesHelper((Object)a); }
+	public static int aantalbytes(int a)     { return aantalbytesHelper((Object)a); }
+	public static int aantalbytes(long a)    { return aantalbytesHelper((Object)a); }
+	public static int aantalbytes(float a)   { return aantalbytesHelper((Object)a); }
+	public static int aantalbytes(double a)  { return aantalbytesHelper((Object)a); }
+	public static int aantalbytes(char a)    { return aantalbytesHelper((Object)a); }
+	public static int aantalbytes(Object a)  { 
+		throw new IllegalArgumentException("aantalbytes() does not accept an object type."); 
+	}
+	
+	private static int aantalbytesHelper(Object obj) {
 		String str = obj.getClass().getName();
 		switch ( str ) {
 			case "java.lang.Boolean":
@@ -58,7 +69,7 @@ class AantalBytes{
 	
 	public static boolean pastin(Object a, Object b)
 	{
-		if (aantalbytes(a) > aantalbytes(b) ) { 
+		if (aantalbytesHelper(a) > aantalbytesHelper(b) ) { 
 			return false;
 		} else { 
 			return true;
