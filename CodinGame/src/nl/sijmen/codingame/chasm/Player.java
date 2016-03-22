@@ -39,9 +39,11 @@ class Player {
 		state = new int[maxLength][maxVelocity];
 		wins = new boolean[maxLength][maxVelocity];
 
-		for (int x = 0; x < xPlatform; x++)
-			for (int v = 0; v < maxVelocity; v++)
+		for (int x = 0; x < xPlatform; x++){
+			for (int v = 0; v < maxVelocity; v++){
 				wins[x][v] = false;
+			}
+		}
 
 		// Mark all positions on the platform with zero velocity as a winning
 		for (int x = xGap; x < xPlatform; x++) {
@@ -53,14 +55,16 @@ class Player {
 		changed = true;
 		while (changed) {
 			changed = false;
-			for (int x = 0; x < xPlatform; x++)
+			for (int x = 0; x < xPlatform; x++) {
 				for (int v = maxVelocity - 1; v >= 0; v--) {
-					if (x - v < 0 || !wins[x][v])
+					if (x - v < 0 || !wins[x][v]){
 						continue;
-
+					}
+					
 					// if x-v is in the gap
-					if (xRoad <= x - v && x - v < xGap)
+					if (xRoad <= x - v && x - v < xGap){
 						continue;
+					}
 
 					if (wins[x - v][v] == false) {
 						update(x - v, v, JUMP); // Jump, since it is equal or
@@ -78,6 +82,7 @@ class Player {
 						}
 					}
 				}
+			}
 		}
 
 		// game loop
