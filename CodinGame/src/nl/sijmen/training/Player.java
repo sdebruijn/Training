@@ -1,12 +1,11 @@
 package nl.sijmen.training;
 
 import java.util.*;
-import java.io.*;
-import java.math.*;
 
 class Player {
 
 	public static void main(String args[]) {
+		@SuppressWarnings("resource")
 		Scanner in = new Scanner(System.in);
 		int lightX = in.nextInt(); // the X position of the light of power
 		int lightY = in.nextInt(); // the Y position of the light of power
@@ -18,7 +17,7 @@ class Player {
 
 		// game loop
 		while (true) {
-			int remainingTurns = in.nextInt();
+			/*int remainingTurns =*/ in.nextInt();
 
 			String strY = "";
 			String strX = "";
