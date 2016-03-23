@@ -3,8 +3,10 @@ package nl.sijmen.webwinkel.ui;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import nl.sijmen.webwinkel.products.BeperktProduct;
 import nl.sijmen.webwinkel.products.DefaultProduct;
 import nl.sijmen.webwinkel.products.Product;
+import nl.sijmen.webwinkel.util.Input;
 import nl.sijmen.webwinkel.winkelwagen.Winkelwagen;
 
 public class UserInterface {
@@ -19,33 +21,29 @@ public class UserInterface {
 		voorraad.add(new DefaultProduct("Boek OCA examen", 40, 1000, Product.stuk));
 		voorraad.add(new DefaultProduct("Mock exam", 10, 400, Product.stuk));
 		voorraad.add(new DefaultProduct("TV", 400, 15, Product.stuk));
+		voorraad.add(new BeperktProduct("Melkpoeder", 15, 25, Product.pak, 2));
 
 		boolean bContinue = true;
 
 		while (bContinue) {
+			char next = 'N';
+			if (wagen.isEmpty()) {
+				next = 'N';
+			} else {
+				next = nextCommand();
+			}
 
-			toonProducten();
-			char next = nextCommand();
 			switch (next) {
 			case 'C':
-				
+				veranderRegel();
 				break;
 			default:
-				try {
-					int productNummer = selectProduct();
-					Product p = voorraad.get(productNummer);
-					int hoeveelheid = selectHoeveelheid();
-					wagen.bestel(p, hoeveelheid);
-				} catch (IllegalArgumentException e) {
-					System.err.println("Error bij het bestellen\n" + e.getMessage());
-					System.err.println(e.toString());
-				}
+				nieuwProduct();
 				break;
 			}
-			
-			
+
 			// Print inhoud winkelwagen
-			System.out.println(wagen.toString());
+			System.out.println(wagen);
 
 			// Vraag afronoden of doorgaan?
 			bContinue = inputContinue();
@@ -55,6 +53,46 @@ public class UserInterface {
 			}
 		}
 
+	}
+
+	private static void veranderRegel() {
+		if (wagen.isEmpty()) {
+			return;
+		}
+		// Voer in welk product je wilt veranderen
+		System.out.println("Voer de regel in die u wilt veranderen: ");
+		int regelNummer = Input.Integer(wagen.size());
+
+		System.out.println("Wilt u ");
+		System.out.println("\t [D] de regel verwijderen?");
+		System.out.println("\t [C] de hoeveelheid wijzigen?");
+		char actieType = Input.Character("CD");
+
+		// Voer in wat je wilt doen:
+		switch (actieType) {
+		case 'C':
+			System.out.println("Voer de nieuwe hoeveelheid in: ");
+			int nieuweHoeveelheid = selectHoeveelheid();
+			wagen.veranderBestelling(regelNummer, nieuweHoeveelheid);
+			break;
+		case 'D':
+			break;
+		default:
+			throw new IllegalArgumentException();
+		}
+		// - Verander aantal (if newAantal == 0 -> delete)
+		// - Verwijder
+	}
+
+	private static void nieuwProduct() {
+		try {
+			toonProducten();
+			Product p = voorraad.get(selectProduct());
+			wagen.bestel(p, selectHoeveelheid());
+		} catch (IllegalArgumentException e) {
+			System.err.println("Error bij het bestellen\n" + e.getMessage());
+			// System.err.println(e.toString());
+		}
 	}
 
 	private static char nextCommand() {
@@ -69,10 +107,10 @@ public class UserInterface {
 	private static boolean inputContinue() {
 		boolean continueShopping = false;
 		while (true) {
-			System.out.print("Wilt u verder winkelen?\n\tDoorgaan [Y]\n\tAfronden [N]\nInput: ");
+			System.out.print("Wilt u verder winkelen?\n\tDoorgaan [J/Y]\n\tAfronden [N]\nInput: ");
 			char in = sc.next().charAt(0);
 			in = Character.toUpperCase(in);
-			if (in == 'Y') {
+			if (in == 'Y' || in == 'J') {
 				continueShopping = true;
 				break;
 			}
@@ -92,15 +130,14 @@ public class UserInterface {
 			System.out.print("Selecteer product: ");
 			if (sc.hasNextInt()) {
 				productNummer = sc.nextInt();
-			
+
 				if (0 < productNummer && productNummer <= voorraad.size()) {
 					break;
 				}
 				System.out.println("Dit productnummer bestaat niet.");
-			} else
-			{
+			} else {
 				sc.next();
-				System.out.println("Geen geldige invoer.");	
+				System.out.println("Geen geldige invoer.");
 			}
 		}
 		return productNummer - 1; // since java is zero-based, but the output

@@ -31,53 +31,73 @@ public final class Winkelwagen {
 		if (hoeveelheid <= 0) {
 			throw new IllegalArgumentException("Hoeveelheid moet strikt positief zijn");
 		}
-		
-		System.out.println("Bezig om " + hoeveelheid + " " + p.getEenheidNaam() + " " + p.getNaam() + " te bestellen...");
-		
+
+		System.out
+				.println("Bezig om " + hoeveelheid + " " + p.getEenheidNaam() + " " + p.getNaam() + " te bestellen...");
+
 		boolean modified = false;
 		ListIterator<ProductBestelling> itr = bestellingen.listIterator();
-		while(itr.hasNext()){
-		    ProductBestelling pb = (ProductBestelling) itr.next();
-		    String pbName = pb.getProductNaam();
-		    if (pbName.equals(p.getNaam()) ) {
-		    	// replace / modify
-		    	modified = true;
-		    	p.haalUitVoorraad(hoeveelheid);
-		    	
-		    	pb.setHoeveelheid( pb.getHoeveelheid() + hoeveelheid);
-		    	itr.set(pb);
-		    }
+		while (itr.hasNext()) {
+			ProductBestelling pb = (ProductBestelling) itr.next();
+			String pbName = pb.getProductNaam();
+			if (pbName.equals(p.getNaam())) {
+				// replace / modify
+				modified = true;
+				p.haalUitVoorraad(hoeveelheid);
+
+				pb.setHoeveelheid(pb.getHoeveelheid() + hoeveelheid);
+				itr.set(pb);
+			}
 		}
-		
+
 		if (!modified) {
 			p.haalUitVoorraad(hoeveelheid);
 			ProductBestelling order = new ProductBestelling(p, hoeveelheid);
-			bestellingen.add(order);	
+			bestellingen.add(order);
 		}
-		
+
 		totaalPrijsExBTW += p.getPrijs(hoeveelheid, false);
 		totaalPrijs += p.getPrijs(hoeveelheid, true);
 	}
 
-	// TODO: Voeg methode deleteRegel(int regelNummer) toe
-	
+	public void veranderBestelling(int productIndex, int hoeveelheid) {
+		ProductBestelling pb = bestellingen.get(productIndex);
+		
+		int oudeHoeveelheid = pb.getHoeveelheid(); 
 
-	public String toString() {
-		String bon = new String();
-		bon += String.format("%-40s %-10s %-20s\n", "Product", "Aantal", "Prijs (ex BTW)");
-		bon += "------------------------------------------------------------------\n";
-		for (ProductBestelling pb : bestellingen) {
-			bon += pb.toString();
-		}
-		bon += "------------------------------------------------------------------\n";
-		final String formatTwo = "%-46s %10d\n";
-		bon += String.format(formatTwo, "Totaal Ex BTW", totaalPrijsExBTW);
-		bon += String.format(formatTwo, "BTW", totaalPrijs - totaalPrijsExBTW);
-		bon += String.format(formatTwo, "Totaal", totaalPrijs);
-		return bon;
+
+	// zorg dat ik iets met product kan
+		
+		pb.setHoeveelheid(hoeveelheid);
+		
+		ProductBestelling order = new ProductBestelling(p, hoeveelheid);
+		
+		
+	}
+	public final boolean isEmpty() {
+		return bestellingen.isEmpty();
 	}
 	
+	public final int size() {
+		return bestellingen.size();
+	}
 	
+	// TODO: Voeg methode deleteRegel(int regelNummer) toe
+
+	public String toString() {
+		StringBuilder bon = new StringBuilder();
+		bon.append( String.format("%-40s %-10s %-20s\n", "Product", "Aantal", "Prijs (ex BTW)"));
+		bon.append( "------------------------------------------------------------------\n");
+		for (ProductBestelling pb : bestellingen) {
+			bon.append( pb.toString());
+		}
+		bon.append( "------------------------------------------------------------------\n");
+		final String formatTwo = "%-46s %10d\n";
+		bon.append( String.format(formatTwo, "Totaal Ex BTW", totaalPrijsExBTW));
+		bon.append( String.format(formatTwo, "BTW", totaalPrijs - totaalPrijsExBTW));
+		bon.append( String.format(formatTwo, "Totaal", totaalPrijs));
+		return bon.toString();
+	}
 
 	final private class ProductBestelling {
 		// Fields
@@ -94,17 +114,17 @@ public final class Winkelwagen {
 		public ProductBestelling(Product product) {
 			this(product, 1);
 		}
-		
+
 		@Override
 		public String toString() {
-			//return "out: " + this.product.getNaam() + " " + this.getHoeveelheid() + " "
-			//		+ this.product.getPrijs(this.getHoeveelheid(), false);
+			// return "out: " + this.product.getNaam() + " " +
+			// this.getHoeveelheid() + " "
+			// + this.product.getPrijs(this.getHoeveelheid(), false);
 			return String.format("%-40s %6d %9d\n", this.product.getNaam(), this.getHoeveelheid(),
-			 this.product.getPrijs(this.getHoeveelheid(), false));
+					this.product.getPrijs(this.getHoeveelheid(), false));
 		}
 
 		// Methods
-		@SuppressWarnings("unused")
 		public void setHoeveelheid(int hoeveelheid) {
 			if (hoeveelheid > 0) {
 				this.hoeveelheid = hoeveelheid;
@@ -129,13 +149,9 @@ public final class Winkelwagen {
 			return getPrijs(true);
 		}
 
-
-
-		@SuppressWarnings("unused")
 		public String getProductNaam() {
 			return this.product.getNaam();
 		}
-
 	}
-
+	
 }

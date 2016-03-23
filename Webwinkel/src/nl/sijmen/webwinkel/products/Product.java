@@ -1,15 +1,9 @@
 package nl.sijmen.webwinkel.products;
 
 import java.security.InvalidParameterException;
-import nl.sijmen.webwinkel.util.Test;
 
 public abstract class Product {
-	// Fields
-
-	private String naam;
-	private int prijs;
-	private int voorraad;
-	private int eenheid;
+	protected int voorraad;
 
 	// Constants
 	public static final int gram = 1;
@@ -20,47 +14,27 @@ public abstract class Product {
 
 	// Constructors
 	Product(String naam, int prijs, int voorraad, int eenheid) {
-		this.naam = naam;
-
-		Test.mustBePositive(prijs, "Prijs (" + prijs + ") moet positief zijn");
-		this.prijs = prijs;
-
-		Test.mustBePositive(voorraad, "Voorraad (" + voorraad + ") moet positief zijn");
-		this.voorraad = voorraad;
-
-		getEenheidNaam(eenheid); // test of eenheid bestaat.
-		this.eenheid = eenheid;
 	}
 
 	Product(String naam, int prijs, int voorraad) {
-		this(naam, prijs, voorraad, stuk);
+	}
+
+	Product() {
 	}
 
 	// Abstract methods
-	abstract public int getBTWPercentage();
+	public abstract int getBTWPercentage();
+	public abstract String getNaam();
+	public abstract int getPrijsPerEenheid();
+	public abstract int getEenheid();
+	public abstract int getVoorraad();
 
 	// Non-abstract methods
-	public String getNaam() {
-		return this.naam;
-	}
-
-	public int getPrijsPerEenheid() {
-		return this.prijs;
-	}
-
-	public int getEenheid() {
-		return this.eenheid;
-	}
-
-	public int getVoorraad() {
-		return this.voorraad;
-	}
-
 	public String toString() {
 		return "Productnaam: " + getNaam() + "  voorraad: " + getVoorraad() + " " + this.getEenheidNaam();
 	}
 
-	final public void setVoorraad(int voorraad) {
+	public final void setVoorraad(int voorraad) {
 		if (voorraad < 0) {
 			throw new InvalidParameterException("voorraad moet een positieve waarde hebben");
 		}
@@ -102,6 +76,12 @@ public abstract class Product {
 		return getPrijsPerEenheid();
 	}
 
+	/**
+	 * Geeft de eenheid van ofwel het product, ofwel die van de corresponderende
+	 * integer.
+	 * 
+	 * @return String naam van eenheid
+	 */
 	public String getEenheidNaam() {
 		return getEenheidNaam(this.getEenheid());
 	}
@@ -123,4 +103,4 @@ public abstract class Product {
 		}
 	}
 
-}
+} // end of class Product

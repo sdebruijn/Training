@@ -5,11 +5,19 @@ public class Test {
 		if (x < 0) {
 			throw new IllegalArgumentException("Argument (" + x + ") must be positive.");
 		}
-	}
+	}	
+	
 	public static void mustBePositive(int x, String msg) {
 		if (x < 0) {
 			throw new IllegalArgumentException(msg);
 		}
 	}
 
+	
+	public static void mustBeStrictlyPositive(int x, String msg) {
+		if (x <= 0) {
+			throw new IllegalArgumentException(msg);
+		}
+	}
+	
 }
