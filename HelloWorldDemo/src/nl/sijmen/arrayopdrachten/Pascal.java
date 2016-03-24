@@ -1,6 +1,6 @@
 package nl.sijmen.arrayopdrachten;
 
-public class tests {
+public class Pascal {
 
 	public static void main(String[] args) {
 		

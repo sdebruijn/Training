@@ -70,7 +70,7 @@ public final class Winkelwagen {
 		
 		pb.setHoeveelheid(hoeveelheid);
 		
-		ProductBestelling order = new ProductBestelling(p, hoeveelheid);
+		//ProductBestelling order = new ProductBestelling(p, hoeveelheid);
 		
 		
 	}

@@ -6,8 +6,8 @@ import java.util.Arrays;
 import java.util.Queue;
 
 public class Graph { // Adjacency list
-    private ArrayList<ArrayList<Integer>> neighbours;
-    private int N;
+    private ArrayList<ArrayList<Integer>> neighbours; // at index i: a list of node i's neighbours 
+    private int N; // number of nodes
     
     public Graph(int N) {
         this.N = N;
