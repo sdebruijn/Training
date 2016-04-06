@@ -63,7 +63,7 @@ public final class Winkelwagen {
 	public void veranderBestelling(int productIndex, int hoeveelheid) {
 		ProductBestelling pb = bestellingen.get(productIndex);
 		
-		int oudeHoeveelheid = pb.getHoeveelheid(); 
+		//int oudeHoeveelheid = pb.getHoeveelheid(); 
 
 
 	// zorg dat ik iets met product kan
