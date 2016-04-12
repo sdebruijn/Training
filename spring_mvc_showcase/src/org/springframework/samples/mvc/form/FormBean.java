@@ -22,6 +22,7 @@ public class FormBean {
 	@Min(21)
 	private int age;
 
+	public void
 	@DateTimeFormat(iso=ISO.DATE)
 	@Past
 	private Date birthDate;
